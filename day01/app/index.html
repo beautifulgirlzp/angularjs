@@ -1,28 +1,81 @@
 <!doctype html>
-<html lang="en" ng-app>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Google Phone Gallery</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="app.css" />
-    <script src="bower_components/angular/angular.js"></script>
   </head>
-  <body>
+  <body ng-app>
+    <p>hello {{"yinguit"}}</p>
+    <p>hello {{"world"}}</p>
+    <p>hello {{"world" + " " + "yinguit"}}</p>
+    <p>{{3 * 5}}</p>
+    <input type="text" ng-model="username">
+    <h1>{{username}}</h1>
+    <div ng-init="testname='hello'">{{testname}}</div>
+    <span ng-bind="testname"></span>
+    <span>{{testname}}</span>
+    <div ng-show="true">需要显示的内容</div>
+    <div ng-show="false">需要隐藏的内容</div>
 
-    <ul>
-      <li>
-        <span>Nexus S</span>
-        <p>
-          Fast just got faster with Nexus S.
-        </p>
-      </li>
-      <li>
-        <span>Motorola XOOM™ with Wi-Fi</span>
-        <p>
-          The Next, Next Generation tablet.
-        </p>
-      </li>
+    <input ng-model="isShow" type="text">
+    <div ng-show="isShow">通过用户文本输入来控制显示或隐藏</div>
+
+    <div ng-init="arr=['hello','world','yinguit']"></div>
+    <ul ng-repeat="item in arr">
+      <li>{{item}}</li>
     </ul>
+    <script type="text/javascript">
+      /*
+      * ng-app
+      * 声明ng的控制范围，在某个标签上加了这个标识，标签之内的所有元素，都是ng可控制的
+      */ 
 
+      /*
+      * 在ng-app范围内，所有的{{}}内部，都是js脚本语言
+      * 可以像js语言一样，进行脚本运算，加减乘除
+      */
+
+      /*
+      * ng-model
+      * 相当于js脚本中声明一个变量
+      * ng-model="username" && var username;
+      * 数据双向绑定，变量发生变化时候，引用这个变量的地方，会同步变化
+      * 不需要像js或jquery那样，处理dom节点
+      */
+
+      /*
+      * ng-init
+      * 相当于js脚本中，声明一个变量后初始化
+      * ng-init="username='hello'" && var username = 'hello'
+      */
+
+      /*
+      * ng-bind
+      * ng-bind 对变量的引用
+      * <span ng-bind="testname"></span> && <span>{{testname}}</span>
+      */
+
+      /*
+      * ng-show 显示或隐藏 ng-show="true||false"
+      * ng-show 通过ng-model绑定输入框时，输入的都是字符串文本 
+      */
+
+      /*
+      * ng-repeat 相当于js脚本中的for in 循环操作
+      * ng-repeat所在的标签，其内部的都是需要循环的内容
+      */
+
+      // console 会在ng渲染模板之前运行，输出下模板
+      console.log( document.getElementsByTagName("body")[0].innerHTML );
+    </script>
+<script src="bower_components/angular/angular.js"></script>
+<script type="text/javascript">
+  var myapp = angular.module("ngday",[]);
+  myapp.controller("day01controller",function($scope){
+
+  });
+</script>
   </body>
 </html>

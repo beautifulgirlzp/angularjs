@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>模块控制器</title>
+  </head>
+  <body>
+    <div ng-app="ngday01">
+        <div ng-controller="day01controller">
+          {{username}}
+        </div>
+        <div ng-controller="contr2">
+            {{obj.name + obj.age}}
+          </div>
+    </div>
+<script src="bower_components/angular/angular.js"></script>
+<script src="app.js"></script>
+<script type="text/javascript">
+  // 定义一个模块，模块名与ng-app后面的值关联
+  var myapp = angular.module("ngday01",[]);
+  // controller 控制器 mvc的C层 
+  // mvc : model view controller
+  myapp.controller("day01controller",function($scope){
+    // $scope ng默认指定的范围字段，换别的字符不识别
+    // ng-init="username='yinguit1601'" 作用类似
+    $scope.username = "yinguit1601";
+  });
+  myapp.controller("contr2",function($scope){
+    // ng-init='myobj="{name:"hello world"}"'
+    $scope.myobj = {
+      name: "hello world",
+      age: 20
+    }
+  });
+</script>
+  </body>
+</html>

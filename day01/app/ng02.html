@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>指令练习</title>
+  </head>
+  <body ng-app>
+    <!-- <div ng-model="objArr"></div> -->
+    <div ng-init='objArr=[{"name":"name1","age":17},{"name":"name2","age":17},{"name":"name3","age":17}]'></div>
+    <ul ng-repeat="obj in objArr">
+      <li>{{"用户名：" + obj.name + ",年龄：" + obj.age}}</li>
+    </ul>
+<script src="bower_components/angular/angular.js"></script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>模块控制器</title>
+  </head>
+  <body>
+    <div ng-app="ngday01">
+        <div ng-controller="mycontrol01">
+            <button type="button" ng-click="add()">点击此处</button>
+            <input type="text" ng-model="count">
+            <div>点击次数：{{count}}</div>
+            <div>{{mywindow}}</div>
+        </div>
+        <div ng-controller="mycontrol02">
+          <div>{{mywindow}}</div>
+        </div>
+    </div>
+<script src="bower_components/angular/angular.js"></script>
+<script src="app.js"></script>
+<script type="text/javascript" src="controller/controller01.js"></script>
+<script src="controller/controller02.js"></script>
+  </body>
+</html>
