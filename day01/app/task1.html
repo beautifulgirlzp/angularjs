@@ -1,0 +1,49 @@
+<html ng-app="task">
+<head>
+	<meta charset="utf-8">
+	<title>课堂作业</title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		ul,ol{
+			list-style: none;
+		}
+		.fn-clear:after{
+			content: "";
+			display: block;
+			clear: both;
+			height: 0px;
+			overflow: hidden;
+		}
+		.fn-clear{zoom: 1;}
+		.nav-list li{
+			float: left;
+			padding: 8px 15px;
+			cursor: pointer;
+			background: #eee;
+			color: #333;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+<body style="width: 800px;margin:50px auto;" ng-controller="getStudentDatas">
+<!-- tab切换，点击某一tab，显示相应的内容，把不需要的内容隐藏起来 -->
+<div class="nav-table">
+	<ul class="nav-list fn-clear">
+		<li ng-click="showFn2(studentDatas1)">班级01</li>
+		<li ng-click="showFn2(studentDatas2)">班级02</li>
+		<li ng-click="showFn2(studentDatas3)">班级03</li>
+	</ul>
+	<div class="content">
+		<ul ng-repeat="obj in studentDatas">
+			<li>{{"姓名："+ obj.name + "，年龄："+obj.age + "，职业：" + obj.doing}}</li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="task/task.js"></script>
+<script src="task/task-control1.js"></script>
+</body>
+</html>
