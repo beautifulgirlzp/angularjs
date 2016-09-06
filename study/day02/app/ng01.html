@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" ng-app="">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="bower_components/angular/angular.js"></script>
+    <style type="text/css">
+      .odd{
+        background: blue;
+        color: #fff;
+      }
+      .even{
+        background: green;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <!--引用外部的页面头-->
+    <div ng-include="include/header.html"></div>
+
+<div ng-init="arr=['aaa','bbb','ccc']"></div>
+<div ng-if="arr[0]=='aaa'">显示内容</div>
+<div ng-if="arr[0]=='bbb'">不显示的内容</div>
+<ul ng-init="a='odd';b='even'">
+  <li ng-repeat="str in arr" ng-class-odd="a" ng-class-even="b">{{str}}</li>
+</ul>
+<div ng-init="abc='className'"></div>
+<div ng-class="abc">ng-class以变量方式</div>
+
+<div ng-init="obj={'cn1':true,'cn2':false,'cn3':true}"></div>
+<div ng-class="obj">ng-class以对象方式</div>
+<div ng-init="arr=['cn4','cn5','cn6']"></div>
+<div ng-class="arr">ng-class以数组的方式</div>
+<div ng-init="objArr=[{'cn7':true,'cn8':false},{'cn9':false,'cn10':true}]"></div>
+<div ng-class="objArr">ng-class以对象数组的方式</div>
+
+<img src="fhtyfu{{asdg}}">
+<img ng-src="fhtyfu{{asdg}}">
+
+<div ng-init='mystyle={"fontSize":"18px","color":"red"}'></div>
+<div ng-style="mystyle">ng-style演示</div>
+
+<div>
+  <legend>ng-checked演示</legend>
+  <input type="checkbox" ng-model="checkAll">全选或全取消
+  <div>
+    <input type="checkbox" ng-checked="checkAll">周一<br>
+    <input type="checkbox" ng-checked="checkAll">周二<br>
+    <input type="checkbox" ng-checked="checkAll">周三<br>
+    <input type="checkbox" ng-checked="checkAll">周四<br>
+    <input type="checkbox" ng-checked="checkAll">周五<br>
+  </div>
+</div>
+<script type="text/javascript">
+  // ng-if 布尔值 表达式判断，true时候，显示此标签内容
+  // $index 获取当前的数组下标 只在ng-repeat中有效
+  // ng-include 引用外部的html
+  // ng-class 存放class ng-class="表达式"
+  // 表达式可以是：变量，对象，数组，对象数组
+  // 对象里面 {"className": "布尔值是否用className"}  {"class名字": true}
+
+  // ng-class-odd 奇数元素时候，显示相应的class
+  // ng-class-even 偶数元素时候，显示相应的class
+
+  // ng-style 样式指令 后面的表达式是对象
+
+  //ng-src 跟img src的属性基本一致，如果ng-src的值有问题，不会发起请求
+  // 更换图片时候，直接修改ng-src的表达式值，不再像js或jquery一样，需要获取节点，动态修改src
+  // ng-href 用法与ng-src基本一致 比href更安全
+
+  // ng-checked 单选或多选框 值为true时，自动勾选
+
+</script>
+  </body>
+</html>
