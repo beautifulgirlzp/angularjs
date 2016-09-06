@@ -15,9 +15,9 @@
       }
     </style>
   </head>
-  <body>
+  <body style="margin: 50px;">
     <!--引用外部的页面头-->
-    <div ng-include="include/header.html"></div>
+    <div ng-include="'include/header.html'"></div>
 
 <div ng-init="arr=['aaa','bbb','ccc']"></div>
 <div ng-if="arr[0]=='aaa'">显示内容</div>
@@ -52,10 +52,35 @@
     <input type="checkbox" ng-checked="checkAll">周五<br>
   </div>
 </div>
+
+<div>
+  <input ng-model="disableInput" type="checkbox">勾选后禁用下面的input<br>
+  <input ng-disabled="disableInput">被禁用的input
+</div>
+
+<select>
+  <option value="0">请选择</option>
+  <option ng-selected="true" value="1">河南</option>
+  <option value="2">湖南</option>
+</select>
+
+<input ng-readonly="true" type="text">
+
+<div>
+  <legend>ng-switch && ng-switch-when</legend>
+  请输入查找内容：<input ng-model="switchVal" type="text"><br>
+  <div ng-switch="switchVal">
+    <div ng-switch-when="1601">输入1601时显示</div>
+    <div ng-switch-when="1602">输入1602时显示</div>
+  </div>
+</div>
 <script type="text/javascript">
   // ng-if 布尔值 表达式判断，true时候，显示此标签内容
   // $index 获取当前的数组下标 只在ng-repeat中有效
-  // ng-include 引用外部的html
+
+  // ng-include="表达式"
+  // 引用外部的html ng-include='"/inclue/index.html"'【注意引号】 需要服务器支持
+
   // ng-class 存放class ng-class="表达式"
   // 表达式可以是：变量，对象，数组，对象数组
   // 对象里面 {"className": "布尔值是否用className"}  {"class名字": true}
@@ -71,6 +96,14 @@
 
   // ng-checked 单选或多选框 值为true时，自动勾选
 
+  // ng-disabled 设置输入框为不可用状态 值为 true false
+
+  // ng-selected 选中某个option 用法同上 
+
+  // ng-readonly 只读属性 与加readonly属性之前比，样式上一样，只是不能修改
+
+  // ng-switch ng-switch-when && switch case
+  // ng-switch-when 布尔值 true时候显示相应的标签
 </script>
   </body>
 </html>
