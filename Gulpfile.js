@@ -110,7 +110,7 @@ gulp.task("copy", function() {
 /*
  * @desc 默认监听less文件和html转为jst函数
  */
-gulp.task("default", ['less', 'look','localhost']);
+gulp.task("default", ['localhost']);
 
 gulp.task('localhost', function() {
     plugins.connect.server({
