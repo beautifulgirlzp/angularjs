@@ -1,0 +1,39 @@
+<html ng-app="ngapp">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script>
+	// $timeout 
+	// var timer = $timeout(function(){}, 2000);
+
+	// 对timer定时器监听.then(执行成功,执行失败)
+	// timer.then(function(data){
+		// timer执行成功后
+	// },function(data){
+		// timer执行失败或失效
+	// });
+
+	// 取消定时器 $timeout.cancel( timer );
+	var myapp = angular.module("ngapp",[]);
+	// seajs.run() run()直接运行调用
+	myapp.run(function($timeout){
+		var timer = $timeout(function(){
+			console.log("3秒后正常输出");
+			return "angular执行成功";
+		},3000);
+		timer.then(function(data){
+			console.log( data );
+		},function(data){
+			console.log( data );
+		});
+		// 取消定时器 
+		$timeout.cancel( timer );
+	});
+
+</script>
+</body>
+</html>

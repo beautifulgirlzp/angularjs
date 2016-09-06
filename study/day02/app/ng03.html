@@ -1,0 +1,31 @@
+<html ng-app="ngapp">
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script>
+	var myapp = angular.module("ngapp",[]);
+	// $interval 内置对象 循环定时器
+	myapp.run(function($interval,$timeout){
+		//$interval(fn,时间间隔,执行次数)
+		// 第一个参数是执行函数
+		// 第二个参数是时间间隔
+		// 第三个参数是限制执行的次数
+		var count = 1;
+		var inter = $interval(function(){
+			console.log("第"+(count++)+"次执行");
+		},2000,3);
+		// 循环定时器执行结束后回调函数
+		inter.then(function(data){
+			console.log("执行结束后回调函数");
+		});
+		// 取消循环定时器
+		// $interval.cancel( inter );
+		$timeout( function(){
+			$interval.cancel( inter );
+		},2000 );
+	});
+</script>
+</body>
+</html>

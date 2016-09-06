@@ -1,0 +1,27 @@
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script type="text/javascript">
+	var myapp = angular.module("myapp",[]);
+	// 内置对象 $http 进行网络请求，与$.ajax用法基本一致
+	myapp.run(function($http){
+		$http({
+			// url: "phones/dell-streak-7.json",
+			url: 'http://10.48.0.41:3000/User/getImgSlide',
+			type: "get",
+			params: {
+				id: "1601",
+				name: "yinguit"
+			}
+		}).success(function(res){
+			console.log( res );
+		});
+	});
+</script>
+</body>
+</html>
