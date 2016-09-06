@@ -1,0 +1,22 @@
+<style>
+	.slideImgs .imgBox{
+		margin:50px auto;
+		width: 450px;
+		height: 300px;
+		overflow: hidden;
+		position: relative;
+	}
+	.slideImgs .imgBox img{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 450px;
+		height: 300px;
+		z-index: -1;
+	}
+</style>
+<div class="slideImgs">
+	<div class="imgBox">
+		<a href="#" ng-repeat="img in imgArr"><img ng-style="showIndex==$index?showStyle:''" title="{{img.alt}}" src="{{img.imgUrl}}"></a>
+	</div>
+</div>

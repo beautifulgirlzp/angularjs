@@ -1,0 +1,46 @@
+<html ng-app="slide">
+<head>
+	<meta charset="utf-8">
+	<style type="text/css">
+		.imgBox{
+			position: relative;
+			width: 450px;
+			height: 300px;
+			margin: 50px auto;
+			overflow: hidden;
+		}
+		.imgBox img{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 450px;
+			height: 300px;
+			z-index: -1;
+		}
+	</style>
+	<script src="bower_components/angular/angular.js"></script>
+	<script>
+		var myapp = angular.module("slide",[]);
+		myapp.controller("slideController",function($scope,$interval){
+			$scope.imgArr = [
+			'http://10.48.0.41:3000/static/app/images/1.jpg',
+			'http://10.48.0.41:3000/static/app/images/2.jpg',
+			'http://10.48.0.41:3000/static/app/images/3.jpg',
+			'http://10.48.0.41:3000/static/app/images/4.jpg'];
+			$scope.showIndex = 0;
+			$interval(function(){
+				if( $scope.showIndex >= $scope.imgArr.length-1 ){
+					$scope.showIndex = 0;
+					return;
+				}
+				$scope.showIndex++;
+			},2000);
+		});
+	</script>
+</head>
+<body>
+	<div class="imgBox" ng-controller="slideController">
+		<img ng-repeat="imgsrc in imgArr" src="{{imgsrc}}" ng-style="showIndex==$index?{'z-index': 1}:''">
+	</div>
+</body>
+</html>

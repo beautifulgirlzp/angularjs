@@ -1,0 +1,46 @@
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script type="text/javascript">
+	var app = angular.module("myapp",[]);
+	app.directive('slideImgs',function(){
+		return {
+			// template: '<div>success</div>',
+			templateUrl: 'slideimg/slideImgs.html',
+			controller: function slideImgsController($http,$scope,$interval){
+					$scope.startImgs = function(){
+						$interval(function(){
+							if( $scope.showIndex >= $scope.imgArrLength-1 ){
+								$scope.showIndex = 0;
+								return;
+							}
+							$scope.showIndex++;
+						},2000);
+					}
+					$http({
+						url: 'http://10.48.0.41:3000/User/getImgSlide',
+						type: "get",
+						params: {
+							id: "1601",
+							name: "yinguit"
+						}
+					}).success(function(res){
+						console.log( res );
+						$scope.imgArr = res.result;
+						$scope.imgArrLength = $scope.imgArr.length;
+						$scope.showStyle = {
+							zIndex: 1
+						}
+						$scope.showIndex = 0;
+						$scope.startImgs();
+					});
+			}
+		}
+	});
+</script>
+</head>
+<body>
+<slide-imgs></slide-imgs>
+</body>
+</html>
