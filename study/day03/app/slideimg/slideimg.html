@@ -1,0 +1,20 @@
+<style type="text/css">
+	.imgBox{
+		width: 450px;
+		height: 300px;
+		position: relative;
+		overflow: hidden;
+		margin: 50px auto;
+	}
+	.imgBox img{
+		width: 450px;
+		height: 300px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: none;
+	}
+</style>
+<div class="imgBox">
+	<img ng-repeat="img in imgArr" ng-style="showIndex==$index?{display:'block'}:''" src="{{img.imgUrl}}">
+</div>

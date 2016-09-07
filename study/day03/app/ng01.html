@@ -1,0 +1,61 @@
+<html ng-app="day03">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<script>
+		var myapp = angular.module("day03",[]);
+		// .controller("控制器名字",function(params){函数执行体});
+		// .controller("控制器名字",["依赖的内置对象","依赖的内置对象",function(params){函数执行体}]);
+		// 建议采用第二种方式，是为了解决代码压缩构建后找不到$scope等内置对象的问题
+		myapp.controller("contr1",["$scope","$timeout",function($scope,$timeout){
+			$scope.username = "hello";
+			$scope.mount = 50;
+		}]);
+
+		myapp.controller("contr2",["$scope",function($scope){
+			$scope.price = 25;
+			$scope.count = 8;
+		}]);
+	</script>
+</head>
+<body>
+	<div ng-controller="contr1">
+		<!-- ng内置函数 转换为大写 -->
+		{{username | uppercase}}
+		<br>
+		{{"hello world" | uppercase}}
+
+		<!-- ng内置函数 转换为小写 -->
+		<br>
+		{{"ASDFASDGAWEGASDGA" | lowercase}}
+		<br>
+		{{username | lowercase}}
+
+		<!-- ng内置函数 currency 把数字转换为货币单位 -->
+		<div ng-controller="contr2">
+			{{price * count | currency}}
+			{{price * count * mount | currency}}
+		</div>
+
+		<!-- ng内置函数 日期格式转换 -->
+		<!-- yyyy-MM-dd hh-mm-ss 12进制日期格式 -->
+		{{ 1473226358148 | date:"yyyy-MM-dd hh-mm-ss" }}
+		<br>
+		<!-- yyyy-MM-dd HH-mm-ss 24进制日期格式 -->
+		{{ 1473226358148 | date:"yyyy-MM-dd HH-mm-ss" }}
+		<br>
+		<!-- 日期格式 如果只要显示年月日 -->
+		{{ 1473226358148 | date:"yyyy-MM-dd" }}
+		<br>
+		<!-- 日期格式 如果只要显示 时分秒 -->
+		{{ 1473226358148 | date:"HH-mm-ss" }}
+		<br>
+		<!-- 日期格式 秒 -->
+		{{ 1473226358148 | date:"ss" }}
+		<br>
+		<!-- 日期格式 年/月/日 -->
+		{{ 1473226358148 | date:"yyyy/MM/dd" }}
+
+	</div>
+</body>
+</html>

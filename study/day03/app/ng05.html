@@ -1,0 +1,33 @@
+<html ng-app="">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+</head>
+<body>
+	<!-- novalidate 去掉浏览器自带的验证功能 -->
+	<!-- form的name属性不可少，ng会默认把验证的各种数据绑定到name属性对象上 -->
+	<form novalidate name="myForm">
+		<legend>username:</legend>
+		<!-- name与ng-model要保持一致，两者都不可缺少 -->
+		<!-- required 表示此项必填，不能为空 -->
+		<!-- ng-minlength 最小长度 -->
+		<!-- ng-maxlength 最大长度 -->
+		<!-- ng-pattern 正则表达式 -->
+		<input name="username" type="text" ng-model="username" ng-minlength="5" required ng-pattern='/^(1[^012][0-9]{9})$/'>
+		<!-- 从form对象myForm中，找到需要验证的input框username,$error是它的错误集合，从错误集合中查看验证条件是否没通过 -->
+		<!-- formName.inputFiledName.prototype -->
+
+		<!-- 修改过的输入框 myForm.username.$dirty -->
+		<!-- 未修改过的输入框 myForm.username.$pristine -->
+
+		<!-- 验证不通过的输入框 myForm.username.$invalid 当$error为空集合时，说明验证通过,$invalid值为false-->
+		<!-- 验证通过的输入框 myForm.username.$valid 验证条件都通过时候，为true -->
+
+		<div>$error: {{myForm.username.$error}}</div>
+		<div>$invalid: {{myForm.username.$invalid}}</div>
+		<div style="color:red" ng-show="myForm.username.$dirty && myForm.username.$error.required">username必填</div>
+
+		<div style="color:red" ng-show="myForm.username.$dirty && myForm.username.$error.minlength">最小长度为5</div>
+	</form>
+</body>
+</html>

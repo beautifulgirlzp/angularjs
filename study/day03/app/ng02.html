@@ -1,0 +1,106 @@
+<html ng-app="day01">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<script>
+		var myapp = angular.module("day01",[]);
+		myapp.controller("contr3",["$scope",function($scope){
+			$scope.userArr = [
+				{
+					name: "ccc",
+					care: "guangzhou"
+				},
+				{
+					name: "aaa",
+					care: "shanghai"
+				},
+				{
+					name: "ccc",
+					care: "beijing"
+				},
+				{
+					name: "bbb",
+					care: "shenzhen"
+				},
+			];
+		}]);
+	</script>
+</head>
+<body>
+	<div ng-controller="contr3">
+		<ul>
+			<li ng-repeat="user in userArr">
+				hello, {{user.name | uppercase}}
+			</li>
+		</ul>
+		----------华丽分割线---------
+		<ul>
+			<li ng-repeat="user in userArr | orderBy:'name'">
+				hello, {{ (user.name | uppercase) }}
+			</li>
+		</ul>
+		----------华丽分割线---------
+		<ul>
+			<li ng-repeat="user in userArr | orderBy:'name' | filter:'i'">
+				hello, {{ (user.name | uppercase) }}
+			</li>
+		</ul>
+		----------华丽分割线---------
+		<br>过滤：<input type="text" ng-model="myfilter">
+		<ul>
+			<li ng-repeat="user in userArr | orderBy:'name' | filter:myfilter">
+				hello, {{user.name+"，"+user.care}}
+			</li>
+		</ul>
+		<!-- filter 对repeat中对象的所有字段生效，与其它无关 -->
+		----------华丽分割线---------
+		<br>演示filter的作用对象<input type="text" ng-model="myfilter2">
+		<ul>
+			<li ng-repeat="user in userArr | orderBy:'name' | filter:myfilter2 | limitTo:2">
+				hello {{user.name}}
+			</li>
+		</ul>
+		----------华丽分割线---------
+		<!-- 限制显示的数量 -->
+		<!-- orderBy: "name" 根据name字段进行排序 -->
+		<!-- orderBy:["name","care"] 先根据name排序，如果name字段一样，再根据care字段排序-->
+		<br>limitTo演示<input type="text" ng-model="myfilter2">
+		<ul>
+			<li ng-repeat="user in userArr | orderBy:['name','care']|filter:myfilter2|limitTo:4">
+				hello {{user.name + user.care}}
+			</li>
+		</ul>
+
+		----------华丽分割线---------
+		<!-- 限制显示的数量 -->
+		<!-- orderBy: "name" 根据name字段进行排序 -->
+		<!-- orderBy:["name","care"] 先根据name排序，如果name字段一样，再根据care字段排序-->
+		<br>orderBy多条件演示<input type="text" ng-model="myfilter2">
+		<ul>
+			<li ng-repeat="user in userArr | orderBy:['name']|filter:myfilter2">
+				hello {{user.name + user.care}}
+			</li>
+		</ul>
+		<div>先按name排序，再按care排序</div>
+		<ul>
+			<li ng-repeat="user in userArr | orderBy:['name','care']|filter:myfilter2">
+				hello {{user.name + user.care}}
+			</li>
+		</ul>
+		<!-- orderBy:'字段名':true 倒序 z-a -->
+		<!-- orderBy:'字段名':false 正序 a-z 默认-->
+		<div>orderBy 倒序</div>
+		<ul>
+			<li ng-repeat="user in userArr | orderBy:'name':true|filter:myfilter2">
+				hello {{user.name + user.care}}
+			</li>
+		</ul>
+
+		<input ng-model="myfilter3" ng-init="myfilter3='aaa'">
+		<select ng-model="myfilter3">
+			<option value="aaa">aaa</option>
+			<option value="bbb">bbb</option>
+		</select>
+	</div>
+</body>
+</html>

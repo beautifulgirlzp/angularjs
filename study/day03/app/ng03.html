@@ -1,0 +1,61 @@
+<html ng-app="day03">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<script>
+		var myapp = angular.module("day03",[]);
+		// 自定义指令
+		// ("指令名",fn()) 指令名需要是驼峰式命名 easyDemo
+		// 引用时候，以-形式命名 easy-demo
+		
+		// 引用的形式 
+		// 1 E 以元素的方式  <easy-demo></easy-demo>
+		// 2 A 以属性的方式  <div easy-demo></div>
+		// 3 C 以类的方式	<div class="easy-demo"></div>
+		// 4 M 以注释的方式 <!--directive:easy-demo --> M的方式 引用名后面必须要有空格
+		myapp.directive("easyDemo",function(){
+			return {
+				// 默认值 "EA" E 元素 A属性 C类 M 注释
+				restrict: 'E',
+				// 默认 false 是否替换指令
+				// 如果 指令以注释的方式引用，replace必须是true
+				// replace: true,
+				replace: false,
+				// template: '<h1>hello world!</h1>'+'<div>asdfasdfa</div>',
+				//模板页面片段
+				templateUrl: "include/directive.html",
+				controller: function($scope, $http, $interval){
+					$http({
+						url: 'http://10.48.0.41:3000/User/getImgSlide',
+						type: 'post',
+						params: {
+							id: "1601",
+							name: "yinguit"
+						}
+					}).success(function(res){
+						$scope.imgArr = res.result;
+						$scope.showIndex = 0;
+						$interval(function(){
+							if( $scope.showIndex >= $scope.imgArr.length-1 ){
+								$scope.showIndex = 0;
+								return;
+							}
+							$scope.showIndex++;
+						},2000);
+					});
+
+					// $scope.imgArr = [
+					// 	'http://10.48.0.41:3000/static/app/images/1.jpg',
+					// 	'http://10.48.0.41:3000/static/app/images/2.jpg',
+					// 	'http://10.48.0.41:3000/static/app/images/3.jpg',
+					// 	'http://10.48.0.41:3000/static/app/images/4.jpg'];
+
+				}
+			}
+		});
+	</script>
+</head>
+<body>
+	<easy-demo></easy-demo>
+</body>
+</html>
