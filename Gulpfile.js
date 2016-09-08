@@ -103,20 +103,28 @@ gulp.task("copy", function() {
         ])
         .pipe(gulp.dest(distPath))
 });
-
+var jsArrday05 = [srcPath + '/day05/app/app.js',srcPath + '/day05/app/controller/**/*.js'];
 gulp.task('watchjs', function() {
     plugins.livereload.listen();
-    gulp.watch([srcPath + '/day04/app/app.js',srcPath + '/day04/app/controller/**/*.js'],["concatjs"])
+    gulp.watch( jsArrday05,["concatjs"])
 });
 gulp.task("concatjs",function(){
-    //gulp.src(srcPath + '/day04/app/controller/**/*.js')
+        return gulp.src(jsArrday05)
+        .pipe(plugins.uglify({
+            mangle: true,
+            compress: {
+                drop_console: true
+            }
+        }))
+        .pipe(plugins.concat("app.min.js"))
+        .pipe(gulp.dest(srcPath + '/day05/app/'));
 });
 
 
 /*
  * @desc 默认监听less文件和html转为jst函数
  */
-gulp.task("default", ['localhost']);
+gulp.task("default", ['localhost','watchjs']);
 
 gulp.task('localhost', function() {
     plugins.connect.server({

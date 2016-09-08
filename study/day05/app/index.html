@@ -1,0 +1,19 @@
+<html ng-app="day05">
+<head>
+	<meta charset="utf-8">
+	<title>{{title}}</title>
+	<link rel="stylesheet" type="text/css" href="app.css">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="app.min.js"></script>
+</head>
+<body>
+	<header>
+		<a href="#/homepage">首页</a>
+		<a href="#/musiclist">音乐列表</a>
+		<a href="#/phonelist">手机列表</a>
+	</header>
+	<div class="content-box" ng-view></div>
+	<footer>©2016 Yinguit 版权所有</footer>
+</body>
+</html>

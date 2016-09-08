@@ -1,12 +1,31 @@
 <html ng-app="day04">
 <head>
 	<meta charset="utf-8">
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		header{
+			line-height: 40px;
+			background: #ea4f4d;
+			text-align: center;
+		}
+		header a{
+			padding: 0 10px;
+			color: #fff;
+		}
+	</style>
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
-	<script src="app.js"></script>
-	<script src="controller/page1Controller.js"></script>
+	<script src="app.min.js"></script>
 </head>
 <body>
+	<header>
+		<a href="#/homepage">首页</a>
+		<a href="#/musiclist">音乐列表</a>
+		<a href="#/phonelist">手机列表</a>
+	</header>
 	<div ng-view></div>
 </body>
 </html>
