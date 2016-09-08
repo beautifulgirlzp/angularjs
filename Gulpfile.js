@@ -104,7 +104,13 @@ gulp.task("copy", function() {
         .pipe(gulp.dest(distPath))
 });
 
-
+gulp.task('watchjs', function() {
+    plugins.livereload.listen();
+    gulp.watch([srcPath + '/day04/app/app.js',srcPath + '/day04/app/controller/**/*.js'],["concatjs"])
+});
+gulp.task("concatjs",function(){
+    //gulp.src(srcPath + '/day04/app/controller/**/*.js')
+});
 
 
 /*

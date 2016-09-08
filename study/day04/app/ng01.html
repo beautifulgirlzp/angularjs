@@ -1,0 +1,50 @@
+<html ng-app="day04">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script>
+		// module('模块名',['依赖的模块'])
+		// ngRoute 来源于angular-route.js里面定义好的模块
+		var myapp = angular.module('day04',['ngRoute']);
+		// 依赖前置：把依赖的文件提前准备好
+		// 依赖后置：什么时候用什么时候加载
+		// seajs   requirejs
+		myapp.config(['$routeProvider',function($routeProvider){
+			// 路由地址就是#后面的内容(也是被浏览器忽略的内容)
+			// when( '路由地址' ,{"":""})
+			$routeProvider.when('/homepage',{
+				templateUrl: 'view/homepageView.html',
+				// controller: [函数依赖前置,函数]
+				// controller: string  常用格式
+				controller: ["$scope",function($scope){
+					$scope.homepage = "hello homepage";
+				}]
+				// template: '<div>it is homepage</div>'+
+				// '<a href="#/detailpage">detailpage</a><br>'+
+				// '<a href="#/homepage">homepage</a><br>'
+			}).when('/detailpage',{
+				template: '<div>it is detailpage</div>'
+			}).when('/detailpage/:pageid/:pageid2',{
+				// 路由带参数的形式
+				template: '<div>it is detailpage by {{pageid}}</div>',
+				controller: ["$scope","$routeParams",function($scope,$routeParams){
+					$scope.pageid = $routeParams.pageid;
+					$scope.pageid2 = $routeParams.pageid2;
+				}]
+			}).otherwise({
+				// otherwise 上面的路由都没有匹配到时候，运行
+				// redirectTo: 重定向到指定的路由地址
+				redirectTo:'/homepage'
+			});
+		}]);
+	</script>
+</head>
+<body>
+	<header style="line-height: 40px;background: #ea4f4d;text-align: center;color: #fff;">页面不变的头部</header>
+	<!-- ng-view ng的页面视图，路由对应的template会自动注入到ng-view这个位置 -->
+	<!-- SPA 单页面机制 与html的锚点功能原理一样，#号后面的内容，浏览器会自动忽略 -->
+	<div ng-view></div>
+	<header style="line-height: 40px;background: #ea4f4d;text-align: center;color: #fff;">页面不变的尾部</header>
+</body>
+</html>
