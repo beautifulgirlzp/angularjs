@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app='myapp'>
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+</head>
+<body ng-controller="myController">
+	<!-- form及输入框标签 name和ng-model 值保持一致 -->
+	<!-- novalidate 去掉浏览器自带的表单验证 -->
+
+	<!-- 修改过的输入框 myForm.username.$dirty -->
+	<!-- 未修改过的输入框 myForm.username.$pristine -->
+
+	<!-- 验证不通过的输入框 myForm.username.$invalid 当$error为空集合时，说明验证通过,$invalid值为false-->
+	<!-- 验证通过的输入框 myForm.username.$valid 验证条件都通过时候，为true -->
+	<!-- myForm.$valid 整个表单验证通过 -->
+	<form action="" name="myForm" ng-model="myForm" novalidate>
+		<!-- 必填项验证: required -->
+		<!-- 最小长度验证: ng-minlength -->
+		<!-- 最大长度验证: ng-maxlength -->
+		<input type="text" name="username" ng-model="username" required ng-minlength='2' ng-maxlength="4">
+		<div ng-show='myForm.username.$dirty &&myForm.username.$error.required'>用户名是必填项</div>
+		<p>{{myForm.username.$error}}</p>
+		<!-- 正则表达式验证：ng-pattern -->
+		<input type="text" name="phone" ng-model="phone" required ng-pattern='/^(1[^012][0-9]{9})$/'>
+		<div ng-show="myForm.phone.$dirty&&myForm.phone.$error.required">手机号是必填项</div>
+		<div ng-show="myForm.phone.$error.pattern">手机号码不正确</div>
+		<p>{{myForm.phone.$error}}</p>
+		<div ng-click="formValid()" ng-style="{background: myForm.$valid?'#0087E3':'#bbb'}">点击提交</div>
+	</form>
+	<script>
+		var app = angular.module('myapp',[]);
+		app.controller('myController', ['$scope','$http', function($scope,$http){
+			$scope.formValid = function(){
+				console.log( "验证结果：" + $scope.myForm.$valid );
+				if( $scope.myForm.$valid ){
+					$http({
+						url: '',
+						type:'get',
+						data: {
+							username: $scope.username,
+							phone: $scope.phone
+						}
+					}).success(function(res){
+
+					})
+				}
+				
+			}
+		}])
+	</script>
+</body>
+</html>

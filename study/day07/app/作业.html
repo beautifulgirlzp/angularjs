@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+			list-style: none;
+		}
+		body{
+			font-family: '微软雅黑';
+			background: #f5f4f2;
+		}
+		h1,h2,h3,h4,h5,h6 {
+		    font-size: 100%;
+		    font-weight: 400
+		}
+		.fn-clear:after {
+		    visibility: hidden;
+		    display: block;
+		    font-size: 0;
+		    content: " ";
+		    clear: both;
+		    height: 0
+		}
+
+		.fn-clear {
+		    zoom:1
+		}
+		.nav-class{
+			padding: 11px 0;
+		}
+		.nav-class span{
+		    padding: 8px 0px;
+		    margin-right: 14px;
+		    cursor: pointer;
+		    font-size: 14px;
+		}
+		.nav-class span:hover,.nav-class span.active{
+			border-bottom: 3px solid #43aefe;
+		}
+		.box{
+			width: 800px;
+			padding: 15px;
+			min-height: 500px;
+			margin: 10px auto;
+			border: 1px solid #d3d3d3;
+			background: #fff;
+		}
+		.head-class{
+			border: 1px solid #d3d3d3;
+			background: #f5f4f2;
+		}
+		.head-class li{
+			float: left;
+			line-height: 44px;
+			text-align: center;
+		}
+		li.width0{
+			width: 370px;
+		}
+		li.width1{
+			width: 140px;
+		}
+		li.width2{
+			width: 135px;
+		}
+		li.width3{
+			width: 135px;
+		}
+		.content-class{
+			padding: 10px 0;
+			border-bottom: 1px solid #d3d3d3;
+			text-align: center;
+		}
+		.content-class li{
+			float: left;
+			height: 95px;
+			overflow: hidden;
+		}
+		.img-class{
+			float: left;
+			margin-right: 10px;
+		}
+		img.img-class{
+			width: 140px;
+			display: block;
+		}
+		.info-class{
+			float: left;
+			text-align: left;
+		    font-size: 14px;
+		}
+		.info-class h1{
+    		font-weight: bolder;
+		}
+		.info-class h3{
+		    color: #828587;
+		    margin-top: 4px;
+		}
+		.info-class p{
+			color: #150b09;
+		    margin-top: 12px;
+		}
+		.content-class .lh95{
+			line-height: 95px;
+			color: #ff4200;
+			font-weight: 700;
+			font-size: 14px;
+		}
+		.content-class a{
+			color: #00a0ff;
+			font-size: 12px;
+    		text-decoration: none;
+		}
+		.content-class a:hover{
+			color: #000;
+			text-decoration: none;
+		}
+		.btn-pay{
+			display: inline-block;
+			padding: 10px 8px;
+			border-radius: 4px;
+			background: #d63700;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			color: #fff;
+			cursor: pointer;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body ng-controller="myController">
+	<div class="box">
+		<div class="nav-class">
+			<span ng-click="checkContent(0)" ng-class="{active: showActive==0}">全部</span>
+			<span ng-click="checkContent(1)" ng-class="{active: showActive==1}">已支付</span>
+			<span ng-click="checkContent(2)" ng-class="{active: showActive==2}">未支付</span>
+		</div>
+		<div class="head-class">
+			<ul class="fn-clear">
+				<li class="width0">项目信息</li>
+				<li class="width1">实付款(元)</li>
+				<li class="width2">交易状态</li>
+				<li class="width3">操作</li>
+			</ul>
+		</div>
+		<div>
+			<ul ng-repeat="obj in orderArr|filter:myFilterModel" class="fn-clear content-class">
+				<li class="width0 fn-clear">
+					<img class="img-class" ng-src="{{obj.img}}" alt="">
+					<div class="info-class">
+						<h1>{{obj.name}}</h1>
+						<h3>by {{obj.fname}}</h3>
+						<p>订单号 {{obj.oid}}</p>
+					</div>
+				</li>
+				<li class="width1 lh95">￥{{obj.rprice}}</li>
+				<li class="width2 lh95">{{obj.status==0?'已支付':'待支付'}}</li>
+				<li class="width3">
+					<div class="btn-pay">立即支付</div>
+					<div><a href="">交易详情</a></div>
+					<div><a href="">删除</a></div>
+				</li>
+			</ul>
+		</div>
+	</div>
+<script>
+	var app = angular.module('myapp',[]);
+	app.controller('myController', ['$scope','$http', function($scope,$http){
+        $scope.showActive = 0;
+        $scope.filterStatus = 0;
+        $scope.orderArr = [];
+        $scope.myFilterModel = {status:''};
+        $http({
+        	url: 'test.json'
+        }).success(function(res){
+        	$scope.orderArr = res.data.list;
+        });
+        $scope.checkContent = function(i){// 0 1 2 
+        	// ['',0,1][i] 
+        	// status:  	''：全部    i:0
+        	// 			0 : 已支付  i:1
+        	// 			1 : 未支付  i:2
+        	if( i==0 ){
+        		$scope.myFilterModel = {status:''};
+        	}else if(i == 1){
+        		$scope.myFilterModel = {status: 0};
+        	}else if(i == 2){
+        		$scope.myFilterModel = {status: 1};
+        	}
+        	// $scope.myFilterModel = {status: ['',0,1][i]}
+        	$scope.showActive = i;
+        	$scope.filterStatus = i;
+        }
+        $scope.myFilter = function(item){
+        	if( $scope.filterStatus -1 < 0 ){
+        		return true;
+        	}
+        	return item.status == $scope.filterStatus-1}
+	}])
+</script>
+</body>
+</html>

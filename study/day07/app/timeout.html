@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+</head>
+<body ng-controller="myController">
+
+<script>
+	var app = angular.module('myapp',[]);
+	app.controller('myController',["$scope","$timeout",function($scope,$timeout){
+		var timer = $timeout(function(){
+			console.log('$timeout结束')
+		},3000);
+		// $timeout.cancel( timer );
+		timer.then(function(){
+			console.log('运行成功后执行')
+		},function(){
+			console.log('运行失败后执行')
+		});
+
+		setTimeout(function(){
+			console.log('setTimeout结束');
+			$timeout.cancel( timer );
+		},1000);
+	}]);
+</script>
+</body>
+</html>

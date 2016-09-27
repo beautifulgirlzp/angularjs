@@ -5,7 +5,7 @@ var fs = require('fs'),
 
 var srcPath = "study/",
     distPath = "study-dist/";
-
+var isday = "/day06";
 /*
  * @desc less文件监听、编译
  */
@@ -103,13 +103,13 @@ gulp.task("copy", function() {
         ])
         .pipe(gulp.dest(distPath))
 });
-var jsArrday05 = [srcPath + '/day05/app/app.js',srcPath + '/day05/app/controller/**/*.js'];
+var jsArrday = [srcPath + isday +'/app/app.js',srcPath + isday +'/app/controller/**/*.js'];
 gulp.task('watchjs', function() {
     plugins.livereload.listen();
-    gulp.watch( jsArrday05,["concatjs"])
+    gulp.watch( jsArrday,["concatjs"])
 });
 gulp.task("concatjs",function(){
-        return gulp.src(jsArrday05)
+        return gulp.src(jsArrday)
         .pipe(plugins.uglify({
             mangle: true,
             compress: {
@@ -117,14 +117,14 @@ gulp.task("concatjs",function(){
             }
         }))
         .pipe(plugins.concat("app.min.js"))
-        .pipe(gulp.dest(srcPath + '/day05/app/'));
+        .pipe(gulp.dest(srcPath +  isday +'/app/'));
 });
 
 
 /*
  * @desc 默认监听less文件和html转为jst函数
  */
-gulp.task("default", ['localhost','watchjs']);
+gulp.task("default", ['localhost','concatjs','watchjs']);
 
 gulp.task('localhost', function() {
     plugins.connect.server({

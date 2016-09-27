@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src='bower_components/angular/angular.js'></script>
+</head>
+<body ng-controller="myController">
+	<p>排序</p>
+	<ul>
+		<!-- orderBy: 'name' 按照名字进行排序-->
+		<!-- orderBy: 'name': true 按照名字从大到小排序 -->
+		<li ng-repeat="obj in dataArr | orderBy:'suc':0===0">
+			<span>{{obj.type + ':' + obj.num + ','+obj.suc}}</span>
+		</li>
+	</ul>
+	<p>过滤</p>
+	<!-- obj = {status: 0, name: 'html5', suc: 125} -->
+	<!-- filter: '5' 对当前对象里面所有的属性值进行过滤，只要存在符合条件的，就可以匹配出来 -->
+	<!-- filter: {status: 0} 指定需要匹配的字段范围-->
+	<!-- filter: fnName 自定义过滤函数-->
+	<!-- $scope.fnName = function(item){ return item.name == 'html5'; } -->
+	<input type="text" ng-model="filterBy">
+	<ul>
+		<li ng-repeat="obj in dataArr | filter: filterByFunc">
+			<span>{{obj.type + ':' + obj.num + ','+obj.suc}}</span>
+		</li>
+	</ul>
+	<script>
+		var app = angular.module('myapp',[]);
+		app.controller('myController',["$scope",function($scope){
+			$scope.filterBy = 'h';
+			$scope.filterByFunc = function(item){
+				// 过滤当前对象的type值为html5时，显示出来
+				return item.type == 'html5'
+				
+				// 过滤对象的type值为html5 且 num为123时，显示出来
+				// return item.type == 'html5' && item.num == 123;
+				
+				// 过滤对象的type值是否含有htm字段，如果有，显示这个对象
+				// return item.type.indexOf('htm') > -1
+			}
+			$scope.dataArr = [
+				{
+					'type': 'html5',
+					'num': 124,
+					'suc': 56
+				},
+				{
+					'type': 'android',
+					'num': 145,
+					'suc': 43
+				},
+				{
+					'type': 'ios',
+					'num': 100,
+					'suc': 12
+				}
+			]
+
+		}])
+	</script>
+</body>
+</html>

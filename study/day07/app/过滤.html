@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src='bower_components/angular/angular.js'></script>
+</head>
+<body ng-controller="myController">
+	<ul>
+		<li>{{user.name | uppercase}}</li>
+		<li>{{user.familyName | lowercase}}</li>
+		<li>{{user.money | currency}}</li>
+		<li>{{user.birth | date:'yyyy-MM-dd hh:mm:ss'}}</li>
+		<li>{{curTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+	</ul>
+	<script>
+		var app = angular.module('myapp',[]);
+		app.controller('myController',["$scope","$interval",function($scope,$interval){
+			$scope.user = {
+				name: 'adf',
+				familyName: 'ADAF',
+				money: "10000",
+				birth: (+new Date())
+			}
+			$scope.curTime = +new Date();
+			$interval(function(){
+				$scope.curTime = +new Date();
+			},1000)
+		}])
+	</script>
+</body>
+</html>

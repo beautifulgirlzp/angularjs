@@ -1,0 +1,43 @@
+<html ng-app="day06">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="app.css">
+	<script src="bower_components/angular/angular.js"></script>
+	<!-- <script src="bower_components/angular-route/angular-route.js"></script> -->
+	<script src="//cdn.bootcss.com/angular-ui-router/1.0.0-beta.2/angular-ui-router.js"></script>
+</head>
+<body>
+	<div ui-view>loading</div>
+	<div ui-view="header"></div>
+	<div ui-view="content"></div>
+	<div ui-view="footer"></div>
+	<script>
+		var myapp = angular.module('day06', ['ui.router']);
+		myapp.config(["$stateProvider","$urlRouterProvider",function($stateProvider,$urlRouterProvider){
+			$urlRouterProvider.otherwise('/root');
+			$stateProvider.state("root",{
+				url: '/root',
+				views: {
+					"": {
+						template: 'hello root',
+						controller: ["$scope",function($scope){
+							console.log("controller");
+						}]
+					},
+					"header": {
+						template: "hello header"
+					},
+					"content": {
+						template: "hello content"
+					},
+					"footer": {
+						template: "hello footer"
+					}
+				}
+			});
+		}]);
+		
+	</script>
+</body>
+</html>

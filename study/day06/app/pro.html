@@ -1,0 +1,66 @@
+<html ng-app="day06">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<link rel="stylesheet" href="pro.css">
+</head>
+<body>
+	<div ui-view="header"></div>
+	<div ui-view="content" class="app-content"></div>
+	<div ui-view="footer"></div>
+	<script>
+		var myapp = angular.module('day06', ['ui.router']);	
+		myapp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
+			$urlRouterProvider.otherwise('/root');
+			$stateProvider
+			.state('root',{
+				url: '/root',
+				views: {
+					"header@": {
+						templateUrl: 'view/pro-header.html',
+						controller: ["$scope","$state",function($scope, $state){
+							$scope.$state = $state;
+						}]
+					},
+					"content@": {
+						templateUrl: 'view/pro-content.html'
+					},
+					"footer": {
+						templateUrl: 'view/pro-footer.html'
+					}
+				}
+			})
+			.state('root.home',{
+				url: '/home',
+				template: 'it is home of root',
+				controller: ["$scope","$state",function($scope, $state){
+					// $state.includes('root') // 模糊匹配 是否含有
+				}]
+			})
+			.state('root.list',{
+				url: '/list',
+				template: 'it is list of root',
+				controller: ["$scope","$state",function($scope, $state){
+					// $state.includes('root') // 模糊匹配 是否含有
+				}]
+			})
+			.state('root.login',{
+				url: '/login',
+				template: 'it is login of root',
+				controller: ["$scope","$state",function($scope, $state){
+					// $state.includes('root') // 模糊匹配 是否含有
+				}]
+			})
+			.state('root.sign',{
+				url: '/sign',
+				template: 'it is sign of root',
+				controller: ["$scope","$state",function($scope, $state){
+					// $state.includes('root') // 模糊匹配 是否含有
+				}]
+			});
+		}])
+	</script>
+</body>
+</html>

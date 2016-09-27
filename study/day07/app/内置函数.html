@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+</head>
+<body ng-controller="myController">
+	<script>
+		var app = angular.module('myapp',[]);
+		app.controller('myController',['$scope',function($scope){
+			var a = {name: 'helloA'};
+			console.log("a:" + a.name);
+			var b = a;
+			b.name = 'helloB';
+			console.log("a:" + a.name);
+			var c = {name: "helloC"};
+			console.log("c:" + c.name);
+			// 深度复制，复制品与源，完全分离开，互不影响
+			var d = angular.copy(c);
+			d.name = 'helloD';
+			console.log("c:" + c.name);
+			// 恒等判断 即判断类型也判断值 ===
+			angular.equals(1,'1');
+			// 大小写转换
+			angular.uppercase('asdfsdfsdf');
+			angular.lowercase('SAFGJDH');
+			// forEach(循环集合,function(当前对象[,对象下标]){}) 
+			var testData = [
+				{name:"a"},
+				{name:"b"},
+				{name:"c"}
+			];
+			angular.forEach( testData,function(item,index){
+				console.log('第'+index+'个,' + item.name )
+			} );
+			//循环对象，forEach({},function(value,key){})
+			angular.forEach({
+				name: "name1",
+				age: "age1",
+				stu: "stu1"
+			},function(item,index){
+				console.log(index+":"+item)
+			})
+		}])
+	</script>
+</body>
+</html>

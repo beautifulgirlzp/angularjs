@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+</head>
+<body ng-controller="myController">
+
+<script>
+	var app = angular.module('myapp',[]);
+	app.controller('myController',["$scope","$http",function($scope,$http){
+		// type 调用后端的方法get|post，不写默认get
+		$http({
+			url: 'test.json'
+		}).success(function(res){
+			console.log(res.data.list);
+		})
+	}]);
+</script>
+</body>
+</html>

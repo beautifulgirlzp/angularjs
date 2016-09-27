@@ -1,0 +1,56 @@
+<html ng-app="day06">
+<head>
+	<meta charset="utf-8">
+	<title>{{title}}</title>
+	<link rel="stylesheet" type="text/css" href="app.css">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+</head>
+<body>
+	<div ui-sref="boom">点击这里出现boom</div>
+	<div ui-sref="boom2">点击这里出现boom2</div>
+	<section ui-view>loading……</section>
+	<script>
+		var myapp = angular.module('day06', ['ui.router']);
+		myapp.config(["$stateProvider","$urlRouterProvider",function($stateProvider,$urlRouterProvider){
+			$urlRouterProvider.otherwise('/wodedizhi');
+			$stateProvider
+			.state('boom',{
+				url: "/wodedizhi",
+				template: "<div ui-sref='boom.list'>hello {{name}}</div><div ui-view></div>",
+				resolve: {
+					userinfo: function(){
+						console.log("resolve userinfo");
+						return {
+							username: "zhang",
+							userage: "100"
+						}
+					}
+				},
+				controller: ["$scope","$state","userinfo",function($scope,$state,userinfo){
+					$scope.name = "boom";
+					console.log("controller:" +　userinfo.username);
+				}],
+				onEnter: function(){
+					console.log("enter")
+				},
+				onExit: function(){
+					console.log("exit")
+				}
+			})
+			.state("boom.list",{
+				url: "/list",
+				template: "<div>这是boom的子级状态list</div>"
+			})
+			.state("boom2",{
+				url: "/wodedizhi2",
+				template: "<div>hello {{name}}</div>",
+				controller: ["$scope",function($scope){
+					$scope.name = "boom2"
+				}]
+			});
+
+		}]);
+	</script>
+</body>
+</html>

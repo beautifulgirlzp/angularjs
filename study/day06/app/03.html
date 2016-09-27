@@ -1,0 +1,73 @@
+<html ng-app="day06">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-touch-fullscreen" content="YES" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>{{title}}</title>
+	<script src="bower_components/angular/angular.js"></script>
+	<!-- <script src="bower_components/angular-route/angular-route.js"></script> -->
+	<script src="//cdn.bootcss.com/angular-ui-router/1.0.0-beta.2/angular-ui-router.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		footer{
+			position: fixed;
+			left:0;
+			right: 0;
+			top:0;
+			line-height: 50px;
+			text-align: center;
+			background: blue;
+		}
+		header{
+			position: fixed;
+			left:0;
+			right: 0;
+			bottom: 0;
+			line-height: 50px;
+			text-align: center;
+			background: blue;
+		}
+		section{
+			position: fixed;
+			left:0;
+			right: 0;
+			top: 50px;
+			bottom: 50px;
+			overflow: auto;
+		}
+	</style>
+</head>
+<body>
+	<div ui-view="header"></div>
+	<div ui-view="content"></div>
+	<div ui-view="footer"></div>
+	<script>
+		var myapp = angular.module('day06', ['ui.router']);
+		myapp.config(["$stateProvider","$urlRouterProvider",function($stateProvider,$urlRouterProvider){
+			$urlRouterProvider.otherwise('/root');
+			$stateProvider.state("root",{
+				url: '/root',
+				views: {
+					"header": {
+						templateUrl: 'view/header.html'
+					},
+					"content": {
+						templateUrl: 'view/content.html'
+					},
+					"footer": {
+						templateUrl: 'view/footer.html'
+					}
+				}
+			});
+		}]);
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+*{
+	padding: 0;
+	margin: 0;
+	font-family: '微软雅黑'
+}
+.clearfix:after{
+	visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0
+}
+.clearfix{
+	zoom: 1
+}
+header{
+	position: absolute;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+	left: 0;
+	right: 0;
+	top: 0;
+	background: #ff3001;
+	background: -webkit-gradient(linear,0 0,0 100%,from(#ff3001),to(#ab3800));
+}
+header .goBack{
+	position: absolute;
+	left: 0;
+	top: 0;
+	cursor: pointer;
+	width: 30px;
+	border-right: 1px solid #ce9898;
+}
+.app-content{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 30px;
+	bottom: 30px;
+	overflow: auto;
+}
+footer{
+	position: absolute;
+	line-height: 30px;
+	font-size: 12px;
+	text-align: center;
+	color: #fff;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #ff3001;
+	background: -webkit-gradient(linear,0 0,0 100%,from(#ff3001),to(#ab3800));
+}
+div.home-nav{
+	text-align: center;
+	margin: 20px auto;
+}
+div.home-nav a{
+	background: green;
+	padding: 8px 20px;
+	font-size: 14px;
+	border-radius: 4px;
+	color: #fff;
+	cursor: pointer;
+	text-decoration: none;
+}
+div.home-nav a:hover,div.home-nav a.active{
+	background: #0cbb0c;
+}
+.home-info img{
+	border-radius: 50%;
+	width: 80px;
+	height: 80px;
+	margin: 100px auto 80px;
+	display: block;
+	-webkit-transform: rotate(360deg);
+    -webkit-animation: loading 3s linear infinite;
+    -moz-transform: rotate(360deg);
+    -moz-animation: loading 3s linear infinite;
+    -ms-transform: rotate(360deg);
+    -ms-animation: loading 3s linear infinite;
+    -o-transform: rotate(360deg);
+    -o-animation: loading 3s linear infinite;
+    transform: rotate(360deg);
+    animation: loading 3s linear infinite
+}
+@-webkit-keyframes loading {
+    from {
+        -webkit-transform: rotate(0deg)
+    }
+
+    to {
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+@-moz-keyframes loading {
+    from {
+        -moz-transform: rotate(0deg)
+    }
+
+    to {
+        -moz-transform: rotate(360deg)
+    }
+}
+
+@-ms-keyframes loading {
+    from {
+        -ms-transform: rotate(0deg)
+    }
+
+    to {
+        -ms-transform: rotate(360deg)
+    }
+}
+
+@-o-keyframes loading {
+    from {
+        -o-transform: rotate(0deg)
+    }
+
+    to {
+        -o-transform: rotate(360deg)
+    }
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(360deg)
+    }
+}
