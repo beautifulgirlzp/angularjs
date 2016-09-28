@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src='bower_components/angular/angular.js'></script>
+</head>
+<body>
+	<mydiv></mydiv>
+<script>
+	var app = angular.module('myapp',[]);
+	// directive('指令名',function(){//指令的执行体})
+	app.directive('mydiv',function(){
+		return {
+			templateUrl: 'view/自定义指令.html',
+			controller: ["$scope","$interval",function($scope,$interval){
+				$scope.dataArr = ["img/1.jpg","img/2.jpg","img/3.jpg"];
+				$scope.showIndex = 0;
+				$interval(function(){
+					if( $scope.showIndex >=2 ){
+						$scope.showIndex = 0;
+						return;
+					}
+					++$scope.showIndex;
+				},1500);
+				
+			}]
+		}
+	})
+</script>
+</body>
+</html>

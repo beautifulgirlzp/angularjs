@@ -1,0 +1,9 @@
+查找手机：<input ng-model="myfilter" type="text">
+<ul>
+	<li ng-repeat="phone in phonelist | filter:myfilter">
+		<img style="width:200px;height:80px;" ng-src="{{phone.imageUrl}}">
+		<a href="#/phone/{{phone.id}}">{{phone.name}}</a>
+		<br>
+		<p>{{phone.snippet}}</p>
+	</li>
+</ul>

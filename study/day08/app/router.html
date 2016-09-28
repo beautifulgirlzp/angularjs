@@ -1,0 +1,50 @@
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+</head>
+<body>
+	<a href="#/home">to Home 页面</a>
+	<!-- ng-view 路由需要渲染的页面，放在ng-view所在标签内部 -->
+	<div ng-view></div>
+<script>
+	// 声明模块时候.module('模块名',[依赖的外部模块])
+	var app = angular.module('myapp',['ngRoute']);
+	// $routeProvider内置模块 来源于 ngRoute
+	// $routeProvider 是对 $location的升级封装，地址栏发生变化时候，$routeProvider可以监听到并做出响应
+	app.config(["$routeProvider",function($routeProvider){
+		// $routeProvider.when('路由',{})
+		// 监听“路由”，产生变化时候响应相应的操作
+		$routeProvider
+		.when('/home',{
+			templateUrl: 'view/home.html',
+			controller: 'homeController'
+		})
+		// url  #/detail/8 参数传递
+		.when('/detail/:id',{
+			template: '<div>detail页面</div>',
+			controller: ['$scope','$routeParams', function($scope,$routeParams){
+				console.log( $routeParams.id )
+			}]
+		})
+		// url #/detaillist/12/0
+		.when('/detaillist/:id/:type',{
+			template: '<div>{{}}++++++{{}}</div>',
+			controller: ["$scope","$routeParams",function($scope,$routeParams){
+				// $routeParams = {//key: value
+				// 	id: 12,
+				// 	type: 'html5'
+				// }
+				console.log($routeParams)
+			}]
+		})
+		.otherwise({
+			// otherwise 路由匹配不到时候，跳转到指定的路由下
+			redirectTo: '/home'
+		})
+	}]);
+</script>
+<script src="controller/homeController.js"></script>
+</body>
+</html>

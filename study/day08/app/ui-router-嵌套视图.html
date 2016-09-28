@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+</head>
+<body>
+<a ui-sref="homepage">进入homepage状态</a>
+<div ui-view></div>
+<script>
+	var app = angular.module('myapp',['ui.router']);
+	app.config(["$stateProvider","$urlRouterProvider",function($stateProvider,$urlRouterProvider){
+		// 进入页面路由匹配不到时候，跳转到【指定路由】
+		// 强制刷新页面 location.reload();
+		$urlRouterProvider.otherwise('/homepage');
+		$stateProvider
+			// 参数传递
+			// 状态名 state:	homepage.detail
+			// 路由定义参数 url: '/detail/:id'
+			// 页面视图ui-serf='homepage.detail({id:12345})'
+			// 在代码里面做状态切换 $state.go('homepage.detail',{type:456,id:12345});
+			// 
+			// 多个参数传递
+			// 路由定义参数 url: 
+			// 		方法一 '/detail/:id/:type'
+			// 		方法二 '/detail?id&type'
+			// 		方法一更符合restful框架设计思想
+	
+			// 	页面视图ui-serf="homepage.detail({id:123,type:\'name\'})"
+			// 	在代码内部做状态切换 同上
+			.state('homepage',{
+				url: '/home',
+				template: '<div>&nbsp;&nbsp;&nbsp;&nbsp;it is homepage state</div>&nbsp;&nbsp;&nbsp;&nbsp;<a ui-sref="homepage.detail({type:\'qqq\',id:12345})">进入detail 状态</a><a ui-sref="homepage.list({id:1,name:\'qqq\'})">进入list 状态</a>'+
+							'<div ui-view></div>',
+				controller: ["$scope","$timeout","$state",function($scope,$timeout,$state){
+					// $timeout(function(){
+					// 	$state.go('homepage.detail',{type:456,id:12345});
+					// },3000);
+				}]
+			})
+			.state('homepage.detail',{
+				url:'/detail/:id/:type',
+				template: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it is detail 子视图',
+				controller: ["$scope","$stateParams",function($scope,$stateParams){
+					console.log($stateParams)
+				}],
+				onEnter: function(){
+					console.log("进入detail视图")
+				}
+			})
+			.state('homepage.list',{
+				url:'/list?id&name',
+				template: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list page'
+			})
+	}])
+</script>
+</body>
+</html>

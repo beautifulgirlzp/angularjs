@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+</head>
+<body>
+	<a ui-sref="homepage">点击进入homepage状态</a>
+	<a ui-sref="detailpage">点击进入detailpage状态</a>
+	<div ui-view="header"></div>
+	<div ui-view="body"></div>
+	<div ui-view="footer"></div>
+
+	<div ui-view></div>
+<script>
+	var app = angular.module('myapp',['ui.router']);
+	app.config(["$stateProvider",function($stateProvider){
+		$stateProvider
+			.state('homepage',{
+				url: '/home',
+				template: 'werqwerq',
+				controller: ["$scope",function($scope){
+					console.log("controller doing")
+				}],
+				views: {
+				// 多视图模式下controller template templateUrl不生效
+					"header":{
+						template: "{{pageName}} 页面",
+						controller: ["$scope",function($scope){
+							$scope.pageName = "header+++++++"
+						}]
+					},
+					"body": {
+						template: "body 页面"
+					},
+					"footer": {
+						template: "footer 页面"
+					}
+				},
+				onEnter: function(){
+					console.log('进入视图 ~~~~')
+				},
+				onExit: function(){
+					console.log('退出视图 ~~~~~')
+				}
+			})
+			.state('detailpage',{
+				url: '/detail',
+				template: 'detail page'
+			})
+	}]);
+</script>
+</body>
+</html>

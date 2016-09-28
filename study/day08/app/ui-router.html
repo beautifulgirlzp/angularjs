@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+</head>
+<body>
+	<!-- 原生语法 ng-view 相当于特殊字符 只能存在一个视图 -->
+	<!-- ui.router封装后 ui-view 可以在页面上存在多个视图-->
+
+	<!-- ui-sref进入页面后，会自动根据状态state找到对应的路由，并绑定 -->
+	<!-- <a href="#/home">点击进入home路由视图</a> -->
+	<a ui-sref="index">点击进入home路由视图</a>
+	<div ui-view></div>
+<script>
+	// 声明的myapp模块，依赖ng自身模块 ngRoute
+	// 声明的myapp模块，依赖第三方模块 ui.router
+	var app = angular.module('myapp',['ui.router']);
+
+	// ngRoute 基于路由(url)，监听路由变化
+	// ui.router 基于状态机制(state) 监听state变化
+	// 状态机制： 把ngRoute中的路由监听机制做了封装，起个状态名
+	app.config(["$stateProvider","$urlRouterProvider",function($stateProvider,$urlRouterProvider){
+		$stateProvider.state('index',{
+			url:'/home',
+			template: 'hello ui.router'
+		})
+	}]);
+</script>
+</body>
+</html>
