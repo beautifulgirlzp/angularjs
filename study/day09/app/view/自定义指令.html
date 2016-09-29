@@ -1,0 +1,52 @@
+<style>
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	ul,li{
+		list-style: none;
+	}
+	ul{
+		width: 400px;
+		height: 150px;
+		margin: 20px auto;
+		position: relative;
+		overflow: hidden;
+	}
+	ul li{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 400px;
+		height: 150px;
+		z-index: 0;
+	}
+	li img{
+		width: 400px;
+		height: 150px;
+	}
+	.hoverIcon{
+		position: absolute;
+		text-align: center;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 2;
+		line-height: 24px;
+	}
+	.hoverIcon span{
+		padding: 0px 20px;
+		background: #b4ddfd;
+		color: #fff;
+		cursor: pointer;
+		margin: 0 8px;
+	}
+</style>
+<ul>
+	<li ng-style="{zIndex: showIndex==$index?'1':'0'}" ng-repeat="string in dataArr">
+		<img ng-src="{{string}}" alt="">
+	</li>
+	<div class="hoverIcon">
+		<span ng-click="hoverFn($index)" ng-repeat="str in dataArr">{{$index+1}}</span>
+	</div>
+</ul>

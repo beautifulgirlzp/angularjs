@@ -3,7 +3,7 @@ var fs = require('fs'),
     gulpLoadPlugins = require('gulp-load-plugins'),
     plugins = gulpLoadPlugins();
 
-var srcPath = "study/",
+var srcPath = "study/qmgj/view/",
     distPath = "study-dist/";
 var isday = "/day06";
 /*
@@ -30,12 +30,6 @@ gulp.task('less', function() {
         }))
         // .pipe(plugins.minifyCss())
         .pipe(gulp.dest( srcPath ))
-        .pipe(plugins.notify({
-            title: 'Gulp',
-            subtitle: 'success',
-            message: 'less OK',
-            sound: "Pop"
-        }))
         .pipe(plugins.livereload());
 });
 /*
@@ -44,13 +38,6 @@ gulp.task('less', function() {
 gulp.task('look', function() {
     plugins.livereload.listen();
     gulp.watch([srcPath + '**/*.less'], ['less']);
-    gulp.watch([srcPath + '**/*.html']).on('change',function(e){
-        gulp.src( e.path,{ base: srcPath } )
-        .pipe(plugins.livereload());
-    });
-    gulp.watch([srcPath + '**/*.js','!'+srcPath + '**/*-html.js']).on('change',function(e){
-      jsHintrc(e);
-    });
 });
 /*
  * @desc js校验
@@ -124,7 +111,7 @@ gulp.task("concatjs",function(){
 /*
  * @desc 默认监听less文件和html转为jst函数
  */
-gulp.task("default", ['localhost','concatjs','watchjs']);
+gulp.task("default", ['localhost','look']);
 
 gulp.task('localhost', function() {
     plugins.connect.server({

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+</head>
+<body>
+<div ng-controller="myController"></div>
+<script>
+	// $resource 模块名 ['ngResource']
+	var app = angular.module('myapp',['ngResource']);
+	app.controller('myController', ['$scope','$resource','$http', function($scope,$resource,$http){
+		// $resource('接口地址','{key:value}'  )
+		var Info = $resource('task.json', {username: '@name'});
+		  // 	get: {method: 'GET'},
+		  //    save: {method: 'POST'},
+		  //    query: {method: 'GET', isArray: true},
+		  //    remove: {method: 'DELETE'},
+		  //    delete: {method: 'DELETE'}
+		Info.save({name:'yingu'},function(response){
+			console.log("$resource请求:")
+			console.log( response );
+		},function(error){
+			console.log( error )
+		});
+		Info.save({},function(){},function(){})
+		// ++++++++++++++++++++++++++++++++++++++++
+		$http({
+			url: 'task.json',
+			method: 'get',
+			params: {
+				name: "yingu"
+			}
+		}).success(function(response){
+			console.log("http请求:")
+			console.log( response )
+		}).error(function() {
+			/* Act on the event */
+		});
+		$http({
+			url: 'task.json',
+			method: 'post',// get post put delete 
+			data: {
+				name: "yingu"
+			}
+		}).success(function(response){
+			console.log("http请求:")
+			console.log( response )
+		})
+	}])
+</script>
+</body>
+</html>
